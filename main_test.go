@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestGet(t *testing.T) {
 	type args struct {
@@ -27,7 +30,7 @@ func TestGet(t *testing.T) {
 	for n, tc := range testCases {
 		t.Run(n, func(t *testing.T) {
 			got := GetItem(tc.args.id, tc.args.name)
-			if got != tc.want {
+			if !reflect.DeepEqual(got, tc.want) {
 				t.Fatalf("GetItem() = %v, want = %v", got, tc.want)
 			}
 		})
