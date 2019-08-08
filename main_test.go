@@ -22,8 +22,9 @@ func TestGet(t *testing.T) {
 				name: "test",
 			},
 			want: &Item{
-				ID:   "100001",
-				Name: "test",
+				ID:    "100001",
+				Name:  "test",
+				token: "token",
 			},
 		},
 	}
@@ -31,7 +32,8 @@ func TestGet(t *testing.T) {
 	for n, tc := range testCases {
 		t.Run(n, func(t *testing.T) {
 			got := GetItem(tc.args.id, tc.args.name)
-			if diff := cmp.Diff(got, tc.want); diff != "" {
+			opt := cmp.AllowUnexported(*got)
+			if diff := cmp.Diff(got, tc.want, opt); diff != "" {
 				t.Fatalf("GetItem() = %v, want = %v", got, tc.want)
 			}
 		})
