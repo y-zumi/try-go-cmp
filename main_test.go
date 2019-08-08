@@ -1,8 +1,9 @@
 package main
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestGet(t *testing.T) {
@@ -30,7 +31,7 @@ func TestGet(t *testing.T) {
 	for n, tc := range testCases {
 		t.Run(n, func(t *testing.T) {
 			got := GetItem(tc.args.id, tc.args.name)
-			if !reflect.DeepEqual(got, tc.want) {
+			if diff := cmp.Diff(got, tc.want); diff != "" {
 				t.Fatalf("GetItem() = %v, want = %v", got, tc.want)
 			}
 		})
